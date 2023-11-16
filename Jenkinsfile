@@ -15,7 +15,9 @@ pipeline {
 
       }
     }
-post {
+
+  }
+  post {
     always {
       script {
         discordSend(
@@ -25,8 +27,8 @@ post {
           webhookURL: "https://discord.com/api/webhooks/1174662484783812672/TSOs8sAUV14BBsJlQ1oOJyLRzdHKfdMr9mrbqBJr1PZQ1o3X8lpDbjtR8mvOQnHxVkMc"
         )
       }
+
     }
 
-  }
   }
 }
