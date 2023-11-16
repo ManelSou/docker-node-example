@@ -19,7 +19,21 @@ pipeline {
     steps { sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image test-image-jenkins'}
     
     }
-     
+
+  stage('Déployer') {
+      when {
+        expression {
+          currentBuild.resultIsBetterOrEqualTo('SUCCESS')
+        }
+
+      }
+      steps {
+        script {
+          def container = docker.image('test-image-jenkins').run("--name test-auto-jenkins -p 8000:80 -d")
+        }
+
+      }
+    }
   }
   post {
     always {
