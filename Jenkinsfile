@@ -1,11 +1,19 @@
 pipeline {
   agent any
   stages {
-    stage('mess') {
+    stage('Cloner le dépôt') {
       steps {
-        echo 'debut'
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[https://github.com/ManelSou/docker-node-example.git: 'GIT-']]])
+      }
+    }
+
+    stage('Construire l\'image Docker') {
+      steps {
+        script {
+          docker.build('test-image-jenkins')
+        }
+
       }
     }
 
   }
-}
